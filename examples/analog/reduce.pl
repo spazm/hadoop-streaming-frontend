@@ -2,7 +2,7 @@
 
 package Analog::Reducer;
 use Moose;
-with 'Hadoop::Reducer';
+with 'Hadoop::Streaming::Reducer';
 
 sub reduce {
     my ($self, $key, $values) = @_;

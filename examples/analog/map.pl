@@ -2,7 +2,7 @@
 
 package Analog::Mapper;
 use Moose;
-with 'Hadoop::Mapper';
+with 'Hadoop::Streaming::Mapper';
 
 sub map {
     my ($self, $key, $value) = @_;
