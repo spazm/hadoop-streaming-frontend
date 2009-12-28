@@ -12,6 +12,16 @@ has buffer => (
     is   => 'rw',
 );
 
+=method next_key 
+
+    $Input->next_key();
+
+Parses the next line into key/value (splits on tab) and returns the key portion.
+
+Returns undef if there is no next line.
+
+=cut
+
 sub next_key {
     my $self = shift;
     my $line = $self->buffer ? $self->buffer : $self->next_line;
@@ -20,12 +30,30 @@ sub next_key {
     return $key;
 }
 
+=method next_line
+
+    $Input->next_line();
+
+Reads the next line into buffer and returns it.
+
+Returns undef if there are no more lines (end of file).
+
+=cut
+
 sub next_line {
     my $self = shift;
     return if $self->handle->eof;
     $self->buffer( $self->handle->getline );
     $self->buffer;
 }
+
+=method getline
+
+    $Input->getline();
+
+Returns the next available line. Clears the internal line buffer if set.
+
+=cut
 
 sub getline {
     my $self = shift;
@@ -38,10 +66,26 @@ sub getline {
     }
 }
 
+=method iterator
+
+    $Input->iterator();
+
+Returns a new Hadoop::Streaming::Reducer::Input::Iterator for this object.
+
+=cut
+
 sub iterator {
     my $self = shift;
     Hadoop::Streaming::Reducer::Input::Iterator->new( input => $self );
 }
+
+=method each
+
+    $Input->each();
+
+Grabs the next line and splits on tabs.  Returns an array containing the output of the split.
+
+=cut
 
 sub each {
     my $self = shift;

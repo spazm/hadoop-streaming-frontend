@@ -15,11 +15,29 @@ has current_key => (
     does => 'Str'
 );
 
+=method has_next
+
+    $Iterator->has_next();
+
+Checks if the iterator has a next_key.  Returns 1 if there is another key in the input iterator.
+
+=cut
+
 sub has_next {
     my $self = shift;
     return if not defined $self->input->next_key;
     1;
 }
+
+=method next
+
+    $Iterator->next();
+
+Returns the key and value iterator for the next key.  Discards any remaining values from the current key.
+
+Moves the iterator to the next key value, and returns the output of retval( $key, $value);
+
+=cut
 
 sub next {
     my $self = shift;
@@ -42,6 +60,17 @@ sub next {
 
     return $self->retval($key, $value);
 }
+
+=method retval
+
+    $Iterator->retval($key );
+    $Iterator->retval($key, $value);
+
+Returns an two element array containing the key and a Hadoop::Streaming::Reducer::Input::ValuesIterator initialized with the given value as the first element.
+
+( $key, $ValueIterator)
+
+=cut
 
 sub retval {
     my ($self, $key, $value) = @_;
