@@ -1,10 +1,10 @@
-package Hadoop::Reducer::Input::ValuesIterator;
+package Hadoop::Streaming::Reducer::Input::ValuesIterator;
 use Moose;
-with 'Hadoop::Role::Iterator';
+with 'Hadoop::Streaming::Role::Iterator';
 
 has input_iter => (
     is       => 'ro',
-    does     => 'Hadoop::Role::Iterator',
+    does     => 'Hadoop::Streaming::Role::Iterator',
     required => 1,
 );
 

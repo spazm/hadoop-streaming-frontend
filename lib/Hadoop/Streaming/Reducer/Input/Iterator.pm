@@ -1,12 +1,12 @@
-package Hadoop::Reducer::Input::Iterator;
+package Hadoop::Streaming::Reducer::Input::Iterator;
 use Moose;
-with 'Hadoop::Role::Iterator';
+with 'Hadoop::Streaming::Role::Iterator';
 
-use Hadoop::Reducer::Input::ValuesIterator;
+use Hadoop::Streaming::Reducer::Input::ValuesIterator;
 
 has input => (
     is       => 'ro',
-    isa      => 'Hadoop::Reducer::Input',
+    isa      => 'Hadoop::Streaming::Reducer::Input',
     required => 1,
 );
 
@@ -47,7 +47,7 @@ sub retval {
     my ($self, $key, $value) = @_;
     return (
         $key,
-        Hadoop::Reducer::Input::ValuesIterator->new(
+        Hadoop::Streaming::Reducer::Input::ValuesIterator->new(
             input_iter => $self,
             first      => $value,
         ),

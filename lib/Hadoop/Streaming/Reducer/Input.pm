@@ -1,6 +1,6 @@
-package Hadoop::Reducer::Input;
+package Hadoop::Streaming::Reducer::Input;
 use Moose;
-use Hadoop::Reducer::Input::Iterator;
+use Hadoop::Streaming::Reducer::Input::Iterator;
 
 has handle => (
     is       => 'ro',
@@ -40,7 +40,7 @@ sub getline {
 
 sub iterator {
     my $self = shift;
-    Hadoop::Reducer::Input::Iterator->new( input => $self );
+    Hadoop::Streaming::Reducer::Input::Iterator->new( input => $self );
 }
 
 sub each {

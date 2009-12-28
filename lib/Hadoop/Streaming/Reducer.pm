@@ -1,20 +1,20 @@
-package Hadoop::Reducer;
+package Hadoop::Streaming::Reducer;
 use Moose::Role;
 
-with 'Hadoop::Role::Emitter';
+with 'Hadoop::Streaming::Role::Emitter';
 
 use IO::Handle;
 use Params::Validate qw/validate_pos/;
-use Hadoop::Reducer::Input;
+use Hadoop::Streaming::Reducer::Input;
 
-with 'Hadoop::Role::Emitter';
+with 'Hadoop::Streaming::Role::Emitter';
 requires qw/reduce/;
 
 sub run {
     my $class = shift;
     my $self = $class->new;
 
-    my $input = Hadoop::Reducer::Input->new(handle => \*STDIN);
+    my $input = Hadoop::Streaming::Reducer::Input->new(handle => \*STDIN);
     my $iter = $input->iterator;
 
     while ($iter->has_next) {

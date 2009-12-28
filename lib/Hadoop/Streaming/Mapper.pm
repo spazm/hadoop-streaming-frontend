@@ -1,10 +1,10 @@
-package Hadoop::Mapper;
+package Hadoop::Streaming::Mapper;
 use Moose::Role;
 
 use IO::Handle;
 use Params::Validate qw/validate_pos/;
 
-with 'Hadoop::Role::Emitter';
+with 'Hadoop::Streaming::Role::Emitter';
 requires qw/map/;
 
 sub run {

@@ -1,4 +1,4 @@
-package Hadoop::Role::Iterator;
+package Hadoop::Streaming::Role::Iterator;
 use Moose::Role;
 
 requires qw/has_next next/;
