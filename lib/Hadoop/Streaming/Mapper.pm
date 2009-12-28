@@ -7,6 +7,8 @@ use Params::Validate qw/validate_pos/;
 with 'Hadoop::Streaming::Role::Emitter';
 requires qw/map/;
 
+# ABSTRACT: Simplify writing Hadoop Streaming jobs, now just write a map and reduce function and you're done.
+
 sub run {
     my $class = shift;
     my $self = $class->new;
