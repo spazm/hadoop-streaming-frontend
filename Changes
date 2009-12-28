@@ -1,7 +1,9 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
-        First CPAN release.
-        Cloned from naoya at github ( http://github.com/naoya/ )
-        Moved from Hadoop:: to Hadoop::Streaming::
-        Started using Dist::Zilla
+    First CPAN release.
+
+    Cloned from naoya at github ( http://github.com/naoya/ )
+    Moved from Hadoop:: to Hadoop::Streaming::
+    Started using Dist::Zilla
+    Added documentation --> pod coverage went from 0% to 100%
