@@ -1,8 +1,5 @@
 #!/usr/bin/env perl
 
-use strict;
-use warnings;
-
 package WordCount::Reducer;
 use Moose;
 with qw/Hadoop::Streaming::Reducer/;
