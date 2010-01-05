@@ -11,21 +11,26 @@ requires qw/map/;
 
 =head1 SYNOPSIS
 
-    #!/usr/bin/perl
+  #!/usr/bin/env perl
+  
+  package Wordcount::Mapper;
+  use Moose;
+  with 'Hadoop::Streaming::Mapper';
+  
+  sub map {
+      my ($self, $key, $value) = @_;
+  
+      for (split /\s+/, $value) {
+          $self->emit( $_ => 1 );
+      }
+  }
+  
+  package main;
+  Wordcount::Mapper->run;
 
-    package Analog::Mapper;
-    use Moose;
-    with 'Hadoop::Streaming::Mapper';
-
-    sub map {
-        my ($self, $line ) = @_;
-
-        my @segments = split /\s+/, $line;
-        $self->emit($segments[8] => 1);
-    }
-
-    package main;
-    Analog::Mapper->run;
+Your mapper class must implement map($key,$value) and your reducer must 
+implement reduce($key,$value).  Your classes will have emit() and run() 
+methods added via role.
 
 =cut
 
@@ -35,8 +40,9 @@ requires qw/map/;
 
 This method starts the Hadoop::Streaming::Mapper instance.  
 
-After creating a new object instance, it reads from STDIN and calls $object->map() on each line of input.
-Subclasses need only implement map() to produce a complete Hadoop Streaming compatible mapper.
+After creating a new object instance, it reads from STDIN and calls 
+$object->map() on each line of input.  Subclasses need only implement map() 
+to produce a complete Hadoop Streaming compatible mapper.
 
 =cut
 
@@ -44,12 +50,8 @@ sub run {
     my $class = shift;
     my $self = $class->new;
 
-    ## FIXME: 入力の形式に併せて処理を変更
     while (my $line = STDIN->getline) {
         chomp $line;
-
-        ## SequenceFileAsTextInputFormat
-        #my ($key, $value) = split /\t/, $line;
 
         $self->map(undef, $line);
     }
@@ -59,8 +61,9 @@ sub run {
 
     $object->emit( $key, $value )
 
-This method emits a key,value pair in the format expected by Hadoop::Streaming.  It does this 
-by calling $self->put().  Catches errors from put and turns them into warnings.
+This method emits a key,value pair in the format expected by Hadoop::Streaming.
+It does this by calling $self->put().  This catches errors from put and turns 
+them into warnings.
 
 =cut
 
@@ -78,7 +81,8 @@ sub emit {
 
     $object->put( $key, $value )
 
-This method emits a key,value pair to STDOUT in the format expected by Hadoop::Streaming. (key\tvalue\n)
+This method emits a key,value pair to STDOUT in the format expected by 
+Hadoop::Streaming: ( key \t value \n )
 
 =cut 
 

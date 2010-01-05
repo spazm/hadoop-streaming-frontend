@@ -7,3 +7,7 @@ Revision history for {{$dist->name}}
     Moved from Hadoop:: to Hadoop::Streaming::
     Started using Dist::Zilla
     Added documentation --> pod coverage went from 0% to 100%
+    Added tests to exercise the example code.
+      tests now require Test::Command
+    Added second example
+    Made both examples work correctly when run locally
