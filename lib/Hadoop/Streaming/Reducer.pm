@@ -10,7 +10,36 @@ use Hadoop::Streaming::Reducer::Input;
 with 'Hadoop::Streaming::Role::Emitter';
 requires qw/reduce/;
 
-# ABSTRACT: Simplify writing Hadoop Streaming jobs, now just write a map and reduce function and you're done.
+# ABSTRACT: Simplify writing Hadoop Streaming jobs. Write a map() and reduce() function and let this role handle the Stream interface.  The Reducer roll provides an iterator over the multiple values for a given key.
+
+=head1 SYNOPSIS
+
+    #!/usr/bin/env perl
+
+    package WordCount::Reducer;
+    use Moose;
+    with qw/Hadoop::Streaming::Reducer/;
+
+    sub reduce {
+        my ($self, $key, $values) = @_;
+
+        my $count = 0;
+        while ( $values->has_next ) {
+            $count++;
+            $values->next;
+        }
+
+        $self->emit( $key => $count );
+    }
+
+    package main;
+    WordCount::Reducer->run;
+
+Your mapper class must implement map($key,$value) and your reducer must 
+implement reduce($key,$value).  Your classes will have emit() and run() 
+methods added via the role.
+
+=cut
 
 =method run
 
