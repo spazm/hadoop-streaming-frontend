@@ -4,6 +4,7 @@ Revision history for {{$dist->name}}
 
     Fixed failing tests on Solaris and FreeBSD, caused by differences
     in sort locale.
+    Updated dist.ini
 
 0.100050  2010-01-05 04:22:37 PST8PDT
     First CPAN release.
