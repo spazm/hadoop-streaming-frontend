@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.100060  2010-01-05 23:30:09 PST8PDT
+
     Fixed failing tests on Solaris and FreeBSD, caused by differences
     in sort locale.
     Updated dist.ini
