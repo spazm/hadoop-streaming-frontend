@@ -1,13 +1,18 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl 
 
 use strict;
 use warnings;
 
-use Test::More tests=>4;
+use Test::More tests=>5;
 use Test::Command;
 
 use FindBin;
+ok( $FindBin::Bin , "FindBin::Bin set" );
+
 my $path="$FindBin::Bin/wordcount/";
+
+my $perl            = '/usr/bin/env perl';
+my $sort            = $FindBin::Bin . '/sort.pl';
 
 my $map             = $path . 'map.pl';
 my $reduce          = $path . 'reduce.pl';
@@ -17,7 +22,7 @@ my $expected_reduce = $path . 'expected-reduce.out';
 
 TEST_MAP:
 {
-    my $map_cmd = Test::Command->new( cmd => "perl $map < $input" );
+    my $map_cmd = Test::Command->new( cmd => "$perl $map < $input" );
     $map_cmd->exit_is_num( 0, 'map exit value is 0' );
     $map_cmd->stdout_is_file( $expected_map,
         "map output matches expected [$expected_map]" );
@@ -25,7 +30,7 @@ TEST_MAP:
 
 TEST_REDUCE:
 {
-    my $reduce_cmd = Test::Command->new( cmd => "sort $expected_map | perl $reduce" );
+    my $reduce_cmd = Test::Command->new( cmd => "$perl $sort $expected_map | $perl $reduce" );
     $reduce_cmd->exit_is_num( 0, 'reducer exit value is 0' );
     $reduce_cmd->stdout_is_file( $expected_reduce,
         "reduce output matches expected [$expected_reduce]" );
