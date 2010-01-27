@@ -18,9 +18,9 @@ requires qw/map/;
   with 'Hadoop::Streaming::Mapper';
   
   sub map {
-      my ($self, $key, $value) = @_;
+      my ($self, $line) = @_;
   
-      for (split /\s+/, $value) {
+      for (split /\s+/, $line) {
           $self->emit( $_ => 1 );
       }
   }
@@ -53,7 +53,7 @@ sub run {
     while (my $line = STDIN->getline) {
         chomp $line;
 
-        $self->map(undef, $line);
+        $self->map($line);
     }
 }
 

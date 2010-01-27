@@ -5,9 +5,9 @@ use Moose;
 with 'Hadoop::Streaming::Mapper';
 
 sub map {
-    my ($self, $key, $value) = @_;
+    my ($self, $line) = @_;
 
-    for (split /\s+/, $value) {
+    for (split /\s+/, $line) {
         $self->emit( $_ => 1 );
     }
 }

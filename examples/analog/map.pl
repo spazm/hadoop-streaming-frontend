@@ -5,9 +5,9 @@ use Moose;
 with 'Hadoop::Streaming::Mapper';
 
 sub map {
-    my ($self, $key, $value) = @_;
+    my ($self, $line) = @_;
 
-    my @segments = split /\s+/, $value;
+    my @segments = split /\s+/, $line;
     $self->emit($segments[1] => 1); #referrer
 }
 
