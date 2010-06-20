@@ -4,7 +4,6 @@ use Moose::Role;
 with 'Hadoop::Streaming::Role::Emitter';
 
 use IO::Handle;
-use Params::Validate qw/validate_pos/;
 use Hadoop::Streaming::Reducer::Input;
 
 with 'Hadoop::Streaming::Role::Emitter';
@@ -69,36 +68,6 @@ sub run {
             warn $@;
         }
     }
-}
-
-=method emit
-
-    $object->emit( $key, $value )
-
-This method emits a key,value pair in the format expected by Hadoop::Streaming.  It does this 
-by calling $self->put().  Catches errors from put and turns them into warnings.
-
-=cut
-sub emit {
-    my ($self, $key, $value) = @_;
-    eval {
-        $self->put($key, $value);
-    };
-    if ($@) {
-        warn $@;
-    }
-}
-
-=method put
-
-    $object->put( $key, $value )
-
-This method emits a key,value pair to STDOUT in the format expected by Hadoop::Streaming. (key\tvalue\n)
-
-=cut 
-sub put {
-    my ($self, $key, $value) = validate_pos(@_, 1, 1, 1);
-    printf "%s\t%s\n", $key, $value;
 }
 
 1;

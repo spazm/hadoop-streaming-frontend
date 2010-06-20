@@ -2,10 +2,10 @@ package Hadoop::Streaming::Mapper;
 use Moose::Role;
 
 use IO::Handle;
-use Params::Validate qw/validate_pos/;
 
+#requires qw(emit counter status); #from Hadoop::Streaming::Role::Emitter
 with 'Hadoop::Streaming::Role::Emitter';
-requires qw/map/;
+requires qw(map);  # from consumer
 
 # ABSTRACT: Simplify writing Hadoop Streaming jobs. Write a map() and reduce() function and let this role handle the Stream interface.
 
@@ -55,40 +55,6 @@ sub run {
 
         $self->map($line);
     }
-}
-
-=method emit
-
-    $object->emit( $key, $value )
-
-This method emits a key,value pair in the format expected by Hadoop::Streaming.
-It does this by calling $self->put().  This catches errors from put and turns 
-them into warnings.
-
-=cut
-
-sub emit {
-    my ($self, $key, $value) = @_;
-    eval {
-        $self->put($key, $value);
-    };
-    if ($@) {
-        warn $@;
-    }
-}
-
-=method put
-
-    $object->put( $key, $value )
-
-This method emits a key,value pair to STDOUT in the format expected by 
-Hadoop::Streaming: ( key \t value \n )
-
-=cut 
-
-sub put {
-    my ($self, $key, $value) = validate_pos(@_, 1, 1, 1);
-    printf "%s\t%s\n", $key, $value;
 }
 
 1;
