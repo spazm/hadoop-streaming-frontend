@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests=>5;
+use Test::More tests=>7;
 use Test::Command;
 
 use FindBin;
@@ -26,6 +26,7 @@ TEST_MAP:
     $map_cmd->exit_is_num( 0, 'map exit value is 0' );
     $map_cmd->stdout_is_file( $expected_map,
         "map output matches expected [$expected_map]" );
+    $map_cmd->stderr_is_eq( '', 'stderr is blank in mapper');
 }
 
 TEST_REDUCE:
@@ -34,4 +35,5 @@ TEST_REDUCE:
     $reduce_cmd->exit_is_num( 0, 'reducer exit value is 0' );
     $reduce_cmd->stdout_is_file( $expected_reduce,
         "reduce output matches expected [$expected_reduce]" );
+    $reduce_cmd->stderr_is_eq( '', 'stderr is blank in reducer');
 }
