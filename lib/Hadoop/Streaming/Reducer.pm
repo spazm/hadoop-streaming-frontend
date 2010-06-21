@@ -1,15 +1,13 @@
 package Hadoop::Streaming::Reducer;
 use Moose::Role;
 
-with 'Hadoop::Streaming::Role::Emitter';
-
 use IO::Handle;
 use Hadoop::Streaming::Reducer::Input;
 
 with 'Hadoop::Streaming::Role::Emitter';
 requires qw/reduce/;
 
-# ABSTRACT: Simplify writing Hadoop Streaming jobs. Write a map() and reduce() function and let this role handle the Stream interface.  The Reducer roll provides an iterator over the multiple values for a given key.
+# ABSTRACT: Simplify writing Hadoop Streaming jobs. Write a reduce() function and let this role handle the Stream interface.  This Reducer roll provides an iterator over the multiple values for a given key.
 
 =head1 SYNOPSIS
 

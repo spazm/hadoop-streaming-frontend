@@ -4,7 +4,7 @@ use Params::Validate qw/validate_pos/;
 
 #provides qw(run emit counter status);
 
-# ABSTRACT: Role to provide emit, counter, and status interaction with hadoop.
+# ABSTRACT: Role to provide emit, counter, and status interaction with Hadoop::Streaming.
 
 =method emit
 
