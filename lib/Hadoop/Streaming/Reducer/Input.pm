@@ -2,6 +2,8 @@ package Hadoop::Streaming::Reducer::Input;
 use Moose;
 use Hadoop::Streaming::Reducer::Input::Iterator;
 
+#ABSTRACT: Parse input stream for reducer
+
 has handle => (
     is       => 'ro',
     does     => 'FileHandle',

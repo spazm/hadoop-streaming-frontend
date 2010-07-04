@@ -2,15 +2,15 @@ package Hadoop::Streaming::Reducer::Input::ValuesIterator;
 use Moose;
 with 'Hadoop::Streaming::Role::Iterator';
 
+#ABSTRACT: Role providing access to values for a given key.
+
 has input_iter => (
     is       => 'ro',
     does     => 'Hadoop::Streaming::Role::Iterator',
     required => 1,
 );
 
-has first => (
-    is       => 'rw',
-);
+has first => ( is => 'rw', );
 
 =method has_next
 
@@ -22,11 +22,13 @@ Returns 1 on success, 0 if the next value is from another key, and undef if ther
 
 =cut
 
-sub has_next {
+sub has_next
+{
     my $self = shift;
     return 1 if $self->first;
     return unless defined $self->input_iter->input->next_key;
-    return $self->input_iter->current_key eq $self->input_iter->input->next_key ? 1 : 0;
+    return $self->input_iter->current_key eq
+        $self->input_iter->input->next_key ? 1 : 0;
 }
 
 =method next
@@ -37,17 +39,18 @@ Returns the next value available.  Reads from $ValuesIterator->input_iter->input
 
 =cut
 
-sub next {
+sub next
+{
     my $self = shift;
-    if (my $first = $self->first) {
-        $self->first( undef );
+    if ( my $first = $self->first )
+    {
+        $self->first(undef);
         return $first;
     }
-    my ($key, $value) = $self->input_iter->input->each;
+    my ( $key, $value ) = $self->input_iter->input->each;
     $value;
 }
 
 __PACKAGE__->meta->make_immutable;
 
 1;
-

@@ -4,6 +4,8 @@ with 'Hadoop::Streaming::Role::Iterator';
 
 use Hadoop::Streaming::Reducer::Input::ValuesIterator;
 
+#ABSTRACT: Collects values for each key together with an iterator interface
+
 has input => (
     is       => 'ro',
     isa      => 'Hadoop::Streaming::Reducer::Input',
