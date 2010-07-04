@@ -4,12 +4,19 @@ package Wordcount::Mapper;
 use Moose;
 with 'Hadoop::Streaming::Mapper';
 
-sub map {
-    my ($self, $line ) = @_;
+sub map
+{
+    my ( $self, $line ) = @_;
 
-    for (split /\s+/, $line ) {
+    for ( split /\s+/, $line )
+    {
         $self->emit( $_ => 1 );
     }
+    $self->counter(
+        group   => 'wordcount',
+        counter => 'linez',
+        amount  => 1
+    );
 }
 
 package main;
