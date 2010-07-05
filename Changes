@@ -2,6 +2,13 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.101860  2010-07-05 13:42:34 EST5EDT
+    improve tests to catch error conditions for reporting when
+      external commands fail.
+    add support for hadoop messages: counter and status.
+    change Dist::Zilla dist.ini files
+    Add abstract headers.
+
 0.100270  2010-01-26 22:49:42 PST8PDT
     Changed map signature.  Now called as $self->map( $line ) 
     instead of $self->map( $key, $value ) with key always undef.
