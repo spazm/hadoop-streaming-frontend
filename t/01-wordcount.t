@@ -1,17 +1,16 @@
-#!/usr/bin/env perl 
-
 use strict;
 use warnings;
 
 use Test::More;
 use Test::Command;
+use Config;
 
 use FindBin;
 ok( $FindBin::Bin , "FindBin::Bin set" );
 
 my $path="$FindBin::Bin/wordcount/";
 
-my $perl            = '/usr/bin/env perl';
+my $perl            = $Config{perlpath};
 my $sort            = $FindBin::Bin . '/sort.pl';
 
 my $map                    = $path . 'map.pl';
@@ -41,5 +40,7 @@ TEST_REDUCE:
     $reduce_cmd->stdout_is_file( $expected_reduce,
         "reduce output matches expected [$expected_reduce]" );
 }
+
+diag "perl path -> $perl";
 
 done_testing();

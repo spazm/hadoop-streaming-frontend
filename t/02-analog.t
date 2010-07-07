@@ -1,17 +1,16 @@
-#!env perl
-
 use strict;
 use warnings;
 
 use Test::More tests=>7;
 use Test::Command;
+use Config;
 
 use FindBin;
 ok( $FindBin::Bin );
 
 my $path="$FindBin::Bin/analog/";
 
-my $perl            = 'env perl';
+my $perl            = $Config{perlpath};
 my $sort            = $FindBin::Bin . '/sort.pl';
 
 my $map             = $path . 'map.pl';
