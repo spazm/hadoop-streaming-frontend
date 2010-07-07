@@ -26,9 +26,9 @@ TEST_MAP:
 {
     my $map_cmd = Test::Command->new( cmd => "$perl $map < $input" );
     $map_cmd->exit_is_num( 0, 'map exit value is 0' );
+    $map_cmd->stderr_is_eq( $expected_map_stderr, 'map stderr is only counters' );
     $map_cmd->stdout_is_file( $expected_map,
         "map output matches expected [$expected_map]" );
-    $map_cmd->stderr_is_eq( $expected_map_stderr, 'map stderr is blank' );
 }
 
 TEST_REDUCE:
@@ -36,10 +36,10 @@ TEST_REDUCE:
     my $reduce_cmd = Test::Command->new(
         cmd => "$perl $sort $expected_map | $perl $reduce" );
     $reduce_cmd->exit_is_num( 0, 'reducer exit value is 0' );
-    $reduce_cmd->stdout_is_file( $expected_reduce,
-        "reduce output matches expected [$expected_reduce]" );
     $reduce_cmd->stderr_is_eq( $expected_reduce_stderr,
         'reduce stderr is blank' );
+    $reduce_cmd->stdout_is_file( $expected_reduce,
+        "reduce output matches expected [$expected_reduce]" );
 }
 
 done_testing();
