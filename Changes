@@ -2,7 +2,12 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.101881  2010-07-07 15:53:10 PST8PDT
+    Add PkgVersion back to dist.ini, so VERSION is properly defined for the modules.  This was included in a previous Dist::Zilla bundle.
+
 0.101880  2010-07-07 08:55:46 PST8PDT
+    Add Hadoop::Streaming.pm base module for documentation purposes
+    Switch to using Config module to get perl location for tests.
 
 0.101860  2010-07-05 13:42:34 EST5EDT
     improve tests to catch error conditions for reporting when
