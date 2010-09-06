@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.102490  2010-09-06 09:34:59 PST8PDT
+
 0.101881  2010-07-07 15:53:10 PST8PDT
     Add PkgVersion back to dist.ini, so VERSION is properly defined for the modules.  This was included in a previous Dist::Zilla bundle.
 
