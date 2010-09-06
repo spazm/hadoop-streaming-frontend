@@ -15,6 +15,7 @@ my $sort            = $FindBin::Bin . '/sort.pl';
 
 my $map                    = $path . 'map.pl';
 my $reduce                 = $path . 'reduce.pl';
+my $combine                = $path . 'combine.pl';
 my $input                  = $path . 'terms.txt';
 my $expected_map           = $path . 'expected-map.out';
 my $expected_reduce        = $path . 'expected-reduce.out';
@@ -28,6 +29,19 @@ TEST_MAP:
     $map_cmd->stderr_is_eq( $expected_map_stderr, 'map stderr is only counters' );
     $map_cmd->stdout_is_file( $expected_map,
         "map output matches expected [$expected_map]" );
+}
+
+TEST_COMBINE:
+{
+    my $expected_combine=$expected_reduce;
+    my $expected_combine_stderr =$expected_reduce_stderr ;
+    my $combine_cmd = Test::Command->new(
+        cmd => "$perl $sort $expected_map | $perl $combine" );
+    $combine_cmd->exit_is_num( 0, 'combiner exit value is 0' );
+    $combine_cmd->stderr_is_eq( $expected_combine_stderr,
+        'combiner stderr is blank' );
+    $combine_cmd->stdout_is_file( $expected_combine,
+        "combiner output matches expected [$expected_combine]" );
 }
 
 TEST_REDUCE:

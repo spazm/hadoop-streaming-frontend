@@ -31,6 +31,33 @@ status() and run() methods added via a role.
 
 =cut
 
+=head1 INTERFACE DETAILS
+
+
+The default inputformat for streaming jobs is TextInputFormat, which returns lines without keys in the streaming context.  Because of this, map is not provided a key/value pair, instead it is given the value (the input line).
+
+If you change your jar options to use a different JavaClassName as inputformat, you may need to deal with key and value. TBD.
+
+quoting from:  http://hadoop.apache.org/common/docs/r0.20.2/streaming.html#Specifying+Other+Plugins+for+Jobs 
+=over 4
+Specifying Other Plugins for Jobs
+
+Just as with a normal Map/Reduce job, you can specify other plugins for a streaming job:
+
+   -inputformat JavaClassName
+   -outputformat JavaClassName
+   -partitioner JavaClassName
+   -combiner JavaClassName
+
+The class you supply for the input format should return key/value pairs of Text class. If you do not specify an input format class, the TextInputFormat is used as the default. Since the TextInputFormat returns keys of LongWritable class, which are actually not part of the input data, the keys will be discarded; only the values will be piped to the streaming mapper.
+
+The class you supply for the output format is expected to take key/value pairs of Text class. If you do not specify an output format class, the TextOutputFormat is used as the default. 
+
+=back
+
+
+=cut
+
 =method run
 
     Package->run();
