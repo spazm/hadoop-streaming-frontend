@@ -2,7 +2,11 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.102520  2010-09-09 10:13:02 PST8PDT
+    Fixed module documentation in Hadoop::Streaming, corrected function signatures to include $self as first arg. 
+
 0.102490  2010-09-06 09:34:59 PST8PDT
+    Added module documentation to Hadoop::Streaming.pm
 
 0.101881  2010-07-07 15:53:10 PST8PDT
     Add PkgVersion back to dist.ini, so VERSION is properly defined for the modules.  This was included in a previous Dist::Zilla bundle.
