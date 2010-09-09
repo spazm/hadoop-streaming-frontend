@@ -9,23 +9,23 @@ package Hadoop::Streaming;
 
     sub map 
     { 
-        my ($line) = @_;
+        my ($self, $line) = @_;
         ...
-        emit( $key => $value);
+        $self->emit( $key => $value);
     }
     sub reduce 
     { 
-        my ( $key, $value_iterator) = @_;
+        my ( $self, $key, $value_iterator) = @_;
         ...
         while( $value_iterator->has_next() ) { ... }
-        emit( $key, $composite_value );
+        $self->emit( $key, $composite_value );
     } 
     sub combine 
     { 
-        my ( $key, $value_iterator) = @_;
+        my ( $self, $key, $value_iterator) = @_;
         ...
         while( $value_iterator->has_next() ) { ... }
-        emit( $key, $composite_value );
+        $self->emit( $key, $composite_value );
     }
 
     package My::Hadoop::Example::Mapper;
@@ -174,7 +174,10 @@ Run this in hadoop from the shell:
 
 $streaming_jar_name is the full path to the streaming jar provided by the installed hadoop.  For my 0.20 install the path is:
 
-The -D line is optional.  If included, -D lines must come directly after the jar name.
+  /usr/lib/hadoop-0.20/contrib/streaming/hadoop-0.20.1+152-streaming.jar
+
+
+The -D line is optional.  If included, -D lines must come directly after the jar name and before other options.
 
 For this hadoop job to work, the mapper, combiner and reducer must be full paths that are valid on each box in the hadoop cluster.  There are a few ways to make this work.
 
