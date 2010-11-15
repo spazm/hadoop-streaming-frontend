@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.103190  2010-11-15 02:38:55 PST8PDT
+    user patch to allow tabs in reducer input data - Steve Caldwell @ Campus Explorer
+
 0.102520  2010-09-09 10:13:02 PST8PDT
     Fixed module documentation in Hadoop::Streaming, corrected function signatures to include $self as first arg. 
 
