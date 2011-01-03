@@ -4,41 +4,46 @@ package Hadoop::Streaming;
 
 =head1 SYNOPSIS
 
+My/Hadoop/Example.pm:
+
     package My::Hadoop::Example;
     use Moose::Role;
 
     sub map 
     { 
         my ($self, $line) = @_;
-        ...
+        my ($key, $value);
+        #... create $key and $value
         $self->emit( $key => $value);
     }
     sub reduce 
     { 
         my ( $self, $key, $value_iterator) = @_;
-        ...
-        while( $value_iterator->has_next() ) { ... }
+        my $composite_value;
+        #... set $composite_value
+        while( $value_iterator->has_next() ) { }
         $self->emit( $key, $composite_value );
     } 
     sub combine 
     { 
         my ( $self, $key, $value_iterator) = @_;
-        ...
-        while( $value_iterator->has_next() ) { ... }
+        my $composite_value;
+        #... set $composite_value
+        while( $value_iterator->has_next() ) { }
         $self->emit( $key, $composite_value );
     }
 
     package My::Hadoop::Example::Mapper;
     use Moose;
-    with Hadoop::Streaming::Mapper,   My::Hadoop::Example;
+    with qw(Hadoop::Streaming::Mapper My::Hadoop::Example);
 
     package My::Hadoop::Example::Combiner;
     use Moose;
-    with Hadoop::Streaming::Combiner, My::Hadoop::Example;
+    with qw(Hadoop::Streaming::Combiner My::Hadoop::Example);
 
     package My::Hadoop::Example::Reducer;
     use Moose;
-    with Hadoop::Streaming::Reducer,  My::Hadoop::Example;
+    with qw(Hadoop::Streaming::Reducer  My::Hadoop::Example);
 
     1;
 
