@@ -2,6 +2,10 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.110030  2011-01-03 12:23:21 America/Los_Angeles
+    switch build from AutoPrereq to AutoPrereqs, as per RJBS the former is EOL.
+    Correct Synopsis section in Hadoop::Streaming parent doc, thanks to error report from Frank S Fejes III
+
 0.103190  2010-11-15 02:38:55 PST8PDT
     user patch to allow tabs in reducer input data - Steve Caldwell @ Campus Explorer
 
