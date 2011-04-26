@@ -7,7 +7,7 @@ package Hadoop::Streaming;
 My/Hadoop/Example.pm:
 
     package My::Hadoop::Example;
-    use Moose::Role;
+    use Any::Moose qw(Role);
 
     sub map 
     { 
@@ -34,15 +34,15 @@ My/Hadoop/Example.pm:
     }
 
     package My::Hadoop::Example::Mapper;
-    use Moose;
+    use Any::Moose;
     with qw(Hadoop::Streaming::Mapper My::Hadoop::Example);
 
     package My::Hadoop::Example::Combiner;
-    use Moose;
+    use Any::Moose;
     with qw(Hadoop::Streaming::Combiner My::Hadoop::Example);
 
     package My::Hadoop::Example::Reducer;
-    use Moose;
+    use Any::Moose;
     with qw(Hadoop::Streaming::Reducer  My::Hadoop::Example);
 
     1;

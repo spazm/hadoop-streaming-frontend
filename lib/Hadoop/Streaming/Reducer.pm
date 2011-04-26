@@ -1,5 +1,5 @@
 package Hadoop::Streaming::Reducer;
-use Moose::Role;
+use Any::Moose qw(Role);
 
 use IO::Handle;
 use Hadoop::Streaming::Reducer::Input;
@@ -14,7 +14,7 @@ requires qw/reduce/;
     #!/usr/bin/env perl
 
     package WordCount::Reducer;
-    use Moose;
+    use Any::Moose;
     with qw/Hadoop::Streaming::Reducer/;
 
     sub reduce {

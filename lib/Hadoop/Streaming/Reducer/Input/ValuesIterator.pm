@@ -1,5 +1,5 @@
 package Hadoop::Streaming::Reducer::Input::ValuesIterator;
-use Moose;
+use Any::Moose;
 with 'Hadoop::Streaming::Role::Iterator';
 
 #ABSTRACT: Role providing access to values for a given key.

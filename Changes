@@ -1,6 +1,9 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+    Use Any::Moose instead of Moose.  This allows users to choose between
+    Moose and Mouse.  Is compile and start up actually faster this way?
+    As per request from Steve Caldwell @ Campus Explorer.
 
 0.110030  2011-01-03 12:23:21 America/Los_Angeles
     switch build from AutoPrereq to AutoPrereqs, as per RJBS the former is EOL.
