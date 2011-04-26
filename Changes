@@ -5,6 +5,9 @@ Revision history for {{$dist->name}}
     Moose and Mouse.  Is compile and start up actually faster this way?
     As per request from Steve Caldwell @ Campus Explorer.
 
+    Pass @INC to sub-process perl processes while doing testing (so we 
+    test with the new version, not installed version, of Hadoop::Streaming)
+
 0.110030  2011-01-03 12:23:21 America/Los_Angeles
     switch build from AutoPrereq to AutoPrereqs, as per RJBS the former is EOL.
     Correct Synopsis section in Hadoop::Streaming parent doc, thanks to error report from Frank S Fejes III
