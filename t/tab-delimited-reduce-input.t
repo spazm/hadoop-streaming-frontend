@@ -9,8 +9,10 @@ use FindBin;
 ok( $FindBin::Bin );
 
 my $path="$FindBin::Bin/tab-delimited-reduce-input/";
+my $inc = join ( " ", map { "-I $_" } @INC );
 
 my $perl            = $Config{perlpath};
+$perl              .= " $inc" if $inc;
 my $sort            = $FindBin::Bin . '/sort.pl';
 
 my $map             = $path . 'map.pl';

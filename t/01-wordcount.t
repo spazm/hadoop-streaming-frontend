@@ -9,8 +9,10 @@ use FindBin;
 ok( $FindBin::Bin , "FindBin::Bin set" );
 
 my $path="$FindBin::Bin/wordcount/";
+my $inc = join ( " ", map { "-I $_" } @INC );
 
 my $perl            = $Config{perlpath};
+$perl              .= " $inc" if $inc;
 my $sort            = $FindBin::Bin . '/sort.pl';
 
 my $map                    = $path . 'map.pl';

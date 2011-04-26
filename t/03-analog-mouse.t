@@ -8,9 +8,12 @@ use Config;
 use FindBin;
 ok( $FindBin::Bin );
 
+my $inc = join ( " ", map { "-I $_" } @INC );
+
 my $path="$FindBin::Bin/analog-mouse/";
 
 my $perl            = $Config{perlpath};
+$perl              .= " $inc" if $inc;
 my $sort            = $FindBin::Bin . '/sort.pl';
 
 my $map             = $path . 'map.pl';
