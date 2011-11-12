@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 
 package Analog::Reducer;
-use Moose;
+use Any::Moose;
 with 'Hadoop::Streaming::Reducer';
 
 sub reduce {

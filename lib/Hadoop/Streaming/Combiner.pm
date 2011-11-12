@@ -1,5 +1,5 @@
 package Hadoop::Streaming::Combiner;
-use Moose::Role;
+use Any::Moose 'Role';
 
 use IO::Handle;
 use Hadoop::Streaming::Reducer::Input;
@@ -14,7 +14,7 @@ requires qw/combine/;
     #!/usr/bin/env perl
 
     package WordCount::Combiner;
-    use Moose;
+    use Any::Moose;
     with qw/Hadoop::Streaming::Combiner/;
 
     sub combine {
