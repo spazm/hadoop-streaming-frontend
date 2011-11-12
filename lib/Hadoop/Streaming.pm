@@ -1,6 +1,6 @@
 package Hadoop::Streaming;
 
-#ABSTRACT: Contains Mapper, Combiner and Reducer roles to simplify writing Hadoop Streaming jobs 
+#ABSTRACT: Contains Mapper, Combiner and Reducer roles to simplify writing Hadoop Streaming jobs
 
 =head1 SYNOPSIS
 
@@ -9,23 +9,23 @@ My/Hadoop/Example.pm:
     package My::Hadoop::Example;
     use Any::Moose qw(Role);
 
-    sub map 
-    { 
+    sub map
+    {
         my ($self, $line) = @_;
         my ($key, $value);
         #... create $key and $value
         $self->emit( $key => $value);
     }
-    sub reduce 
-    { 
+    sub reduce
+    {
         my ( $self, $key, $value_iterator) = @_;
         my $composite_value;
         #... set $composite_value
         while( $value_iterator->has_next() ) { }
         $self->emit( $key, $composite_value );
-    } 
-    sub combine 
-    { 
+    }
+    sub combine
+    {
         my ( $self, $key, $value_iterator) = @_;
         my $composite_value;
         #... set $composite_value
@@ -70,15 +70,15 @@ reducer executable:
 
 Hadoop::Streaming::* provides a simple perl interface to the Streaming interface of Hadoop.
 
-Hadoop is a system "reliable, scalable, distributed computing."  Hadoop was developed at Yahoo! and is now maintained by the Apache Software Foundation.  
+Hadoop is a system "reliable, scalable, distributed computing."  Hadoop was developed at Yahoo! and is now maintained by the Apache Software Foundation.
 
 Hadoop provides a distributed map/reduce framework.  Mappers take lines of unstructured file data and produce key/value pairs.  These key/value pairs are merged and sorted by key and provided to Reducers.  Reducers take key/value pairs and produce higher order data.   This works for data that where output key/value pairs can be determined from a single line of data in isolation.  The Reducer is provided sho
 
-=over 
+=over
 
 =item  Hadoop's Streaming Interface
 
-The Streaming interface provides a simple API for writing Hadoop jobs in any language.  Jobs are provided input on STDIN and output is expected on STDOUT.  Key value pairs are separated by a TAB character. 
+The Streaming interface provides a simple API for writing Hadoop jobs in any language.  Jobs are provided input on STDIN and output is expected on STDOUT.  Key value pairs are separated by a TAB character.
 
 Streaming map jobs are provided an input of lines instead of key-value pairs.  See Hadoop::Streaming::Mapper INTERFACE DETAILS for an explanation.
 
@@ -136,7 +136,7 @@ http://en.wikipedia.org/wiki/MapReduce
 
 http://hadoop.apache.org
 
-=item Hadoop Streaming interface: 
+=item Hadoop Streaming interface:
 
 http://hadoop.apache.org/common/docs/r0.20.1/streaming.html
 
@@ -161,7 +161,7 @@ For larger files, make intermediary output files.  The output of the intermediat
   my_mapper < test_input_file > output.map        && \
   sort output.map > output.mapsort                && \
   my_combiner < output.mapsort > output.combine   && \
-  my_reducer < output.combine > output.reduce 
+  my_reducer < output.combine > output.reduce
 
 
 =item hadoop commandline
@@ -188,7 +188,7 @@ For this hadoop job to work, the mapper, combiner and reducer must be full paths
 
 =item hadoop job -files option
 
-Additional files may be bundled into the hadoop jar via the '-files' option to hadoop jar.  These files will be included in the jar that is distributed to each host.  The files will be visible in the current directory of the process.  Subdirectories will not be created.
+Additional files may be bundled into the hadoop jar via the '-files' option to hadoop jar.  These files will be included in the jar that is distributed to each host.  The files will be visible in the current working directory of the process.  Subdirectories will not be created.
 
 example:
   hadoop                                     \
@@ -205,11 +205,11 @@ example:
 
 =item using perl modules
 
-All perl modules must be installed on each hadoop cluster machine.  This proves to be a challenge for large installations.  I have a local::lib controlled perl directory that I push out to a fixed location on all of my hadoop boxes (/apps/perl5) that is kept up-to-date and included in my system image.  Previously I was producing stand-alone perl files with PAR::Packer (pp), which worked quite well except for the size of the jar with the -file option.  The standalone files can be put into hdfs and then included with the jar via the -cacheFile option.  An option I have not investigated is using -cacheJar to push a jar of my necessary perl files along with the job.
+All perl modules must be installed on each hadoop cluster machine.  This proves to be a challenge for large installations.  I have a local::lib controlled perl directory that I push out to a fixed location on all of my hadoop boxes (/apps/perl5) that is kept up-to-date and included in my system image.  Previously I was producing stand-alone perl files with PAR::Packer (pp), which worked quite well except for the size of the jar with the -file option.  The standalone files can be put into hdfs and then included with the jar via the -cacheFile option.  A final option is to create a jar (zip) of library files and use -archives option to push the jar and expand it into the working directory.
 
 =over 4
 
-=item local::lib 
+=item local::lib
 
 * install all modules into a local::lib controlled directory, push this directory to all of the hadoop cluster boxes (rsync, app installer, nfs mount ), explicitly include this directory in a C<use lib> or C<use local::lib> line in your mapper/reducer/combiner files.
 
@@ -230,7 +230,7 @@ All perl modules must be installed on each hadoop cluster machine.  This proves 
       -mapper   /apps/perl5/bin/my_mapper    \
       -combiner /apps/perl5/bin/my_combiner  \
       -reducer  /apps/perl5/bin/my_reducer
-  
+
 =item local path of included -file file
 
   hadoop                                     \
@@ -239,14 +239,47 @@ All perl modules must be installed on each hadoop cluster machine.  This proves 
       -output   my_output_hdfs_path          \
       -file     /apps/perl5/bin/my_mapper    \
       -file     /apps/perl5/bin/my_combiner  \
-      -file     /apps/perl5/bin/my_reducer   \ 
+      -file     /apps/perl5/bin/my_reducer   \
       -mapper   ./my_mapper                  \
       -combiner ./my_combiner                \
       -reducer  ./my_reducer
 
 =back
 
+=item --archive flag and jar of perl libraries
+
+Recommended.
+
+Create a jar of your lib directory and include via -archives flag. The jar will be expanded into the working directory.  For the example 'lib.jar' below, the jar will exand to './lib.jar/lib/' .  Include this path within your mapper/reducer/combiner code.
+
+  jar -cvf lib.jar lib/
+
+  hadoop jar ${jarpath}                     \
+        -archives lib.jar                   \
+        -input    /path/to/inputdir         \
+        -output   /path/to/output           \
+        -file     /path/to/mapper.pl        \
+        -file     /path/to/reducer.pl       \
+        -mapper   mapper.pl                 \
+        -reducer  reducer.pl
+
+Within mapper.pl and reducer.pl, include the lib path "./lib.jar/lib", either by -I flag to perl or 'use libs'.
+
+mapper.pl:
+  #!/usr/bin/perl -I./lib.jar/lib
+  use My::Hadoop::Example;
+  My::Hadoop::Example::Mapper->run();
+
+mapper.pl:
+  #!/usr/bin/perl
+  use libs './lib.jar/lib';
+  use My::Hadoop::Example;
+  My::Hadoop::Example::Mapper->run();
+
+
 =item PAR::Packer / pp
+
+Deprecated.
 
 Use pp (installed via PAR::Packer) to produce a perl file that needs only a perl interpreter to execute.  I use -x option to run the my_mapper script on blank input, as this forces all of the necessary modules to be loaded and thus tracked in my PAR file.
 
@@ -268,16 +301,16 @@ To simplify this process and reduce errors, I use make to produce the packed bin
         multiattribute-mapper.pl                  \
         multiattribute-combiner.pl                \
         multiattribute-reducer.pl
-    
+
     PERL_LIBRARIES =                              \
         lib/RegionDMA.pm                          \
         lib/RegionDMA/Lookup.pm                   \
         lib/Truthiness/Allocator.pm
-    
+
     PACKEDTARGETS  = $(patsubst %,packed/%,$(PERLTOPACK))
     PACK           = packed $(PACKEDTARGETS)
-    
-    PACK : $(PACK) 
+
+    PACK : $(PACK)
         echo "pack: $(PACKTARGETS)"
     packed:
         mkdir packed
