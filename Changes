@@ -1,12 +1,17 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.113160  2011-11-12 15:49:32 America/Los_Angeles
     Use Any::Moose instead of Moose.  This allows users to choose between
     Moose and Mouse.  Is compile and start up actually faster this way?
     As per request from Steve Caldwell @ Campus Explorer.
 
-    Pass @INC to sub-process perl processes while doing testing (so we 
+    Pass @INC to sub-process perl processes while doing testing (so we
     test with the new version, not installed version, of Hadoop::Streaming)
+
+    Improve pod in Hadoop::Streaming by including an example of using
+    jar command and hadoop -archives flag.
 
 0.110030  2011-01-03 12:23:21 America/Los_Angeles
     switch build from AutoPrereq to AutoPrereqs, as per RJBS the former is EOL.
