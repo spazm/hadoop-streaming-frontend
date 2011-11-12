@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 
 package Wordcount::Mapper;
-use Moose;
+use Any::Moose;
 with 'Hadoop::Streaming::Mapper';
 
 sub map {

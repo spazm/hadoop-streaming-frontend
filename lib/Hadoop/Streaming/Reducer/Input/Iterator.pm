@@ -1,5 +1,5 @@
 package Hadoop::Streaming::Reducer::Input::Iterator;
-use Moose;
+use Any::Moose;
 with 'Hadoop::Streaming::Role::Iterator';
 
 use Hadoop::Streaming::Reducer::Input::ValuesIterator;
