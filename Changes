@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.122420  2012-08-28 23:35:45 America/Los_Angeles
+
 0.113160  2011-11-12 15:49:32 America/Los_Angeles
     Use Any::Moose instead of Moose.  This allows users to choose between
     Moose and Mouse.  Is compile and start up actually faster this way?
