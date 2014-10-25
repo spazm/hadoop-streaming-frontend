@@ -1,5 +1,5 @@
 package Hadoop::Streaming::Reducer::Input;
-use Any::Moose;
+use Moo;
 use Hadoop::Streaming::Reducer::Input::Iterator;
 
 #ABSTRACT: Parse input stream for reducer

@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 
 package MyMapper;
-use Any::Moose;
+use Moo;
 with 'Hadoop::Streaming::Mapper';
 
 sub map {

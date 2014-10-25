@@ -1,5 +1,6 @@
 package Hadoop::Streaming::Reducer::Input::Iterator;
-use Any::Moose;
+use Moo;
+use Safe::Isa;
 with 'Hadoop::Streaming::Role::Iterator';
 
 use Hadoop::Streaming::Reducer::Input::ValuesIterator;
@@ -8,7 +9,10 @@ use Hadoop::Streaming::Reducer::Input::ValuesIterator;
 
 has input => (
     is       => 'ro',
-    isa      => 'Hadoop::Streaming::Reducer::Input',
+    isa      => sub {
+        die 'not a Hadoop::Streaming::Reducer::Input object'
+            unless $_[0]->$_isa('Hadoop::Streaming::Reducer::Input');
+    },
     required => 1,
 );
 

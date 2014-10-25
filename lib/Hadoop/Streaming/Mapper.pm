@@ -1,5 +1,5 @@
 package Hadoop::Streaming::Mapper;
-use Any::Moose qw(Role);
+use Moo::Role;
 use IO::Handle;
 
 with 'Hadoop::Streaming::Role::Emitter';
@@ -13,7 +13,7 @@ requires qw(map);  # from consumer
   #!/usr/bin/env perl
   
   package Wordcount::Mapper;
-  use Any::Moose;
+  use Moo;
   with 'Hadoop::Streaming::Mapper';
   
   sub map

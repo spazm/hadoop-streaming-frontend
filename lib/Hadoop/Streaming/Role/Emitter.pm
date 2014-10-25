@@ -1,5 +1,5 @@
 package Hadoop::Streaming::Role::Emitter;
-use Any::Moose qw(Role);
+use Moo::Role;
 use Params::Validate qw/validate_pos/;
 
 #provides qw(run emit counter status);
