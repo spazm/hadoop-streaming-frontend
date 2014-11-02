@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 
 package WordCount::Reducer;
-use Moose;
+use Moo;
 with qw/Hadoop::Streaming::Reducer/;
 
 sub reduce {

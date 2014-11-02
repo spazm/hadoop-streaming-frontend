@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 
 package WordCount::Combiner;
-use Moose;
+use Moo;
 with qw/Hadoop::Streaming::Combiner/;
 
 sub combine {

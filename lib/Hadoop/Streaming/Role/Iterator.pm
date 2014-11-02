@@ -1,5 +1,5 @@
 package Hadoop::Streaming::Role::Iterator;
-use Any::Moose qw(Role);
+use Moo::Role;
 
 requires qw(has_next next);
 #ABSTRACT: Role to require has_next and next
