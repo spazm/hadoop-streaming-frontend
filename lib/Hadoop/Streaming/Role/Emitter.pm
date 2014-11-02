@@ -1,4 +1,5 @@
 package Hadoop::Streaming::Role::Emitter;
+
 use Moo::Role;
 use Params::Validate qw/validate_pos/;
 

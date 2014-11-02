@@ -1,4 +1,5 @@
 package Hadoop::Streaming::Reducer::Input::Iterator;
+
 use Moo;
 use Safe::Isa;
 with 'Hadoop::Streaming::Role::Iterator';

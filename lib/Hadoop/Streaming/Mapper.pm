@@ -1,4 +1,5 @@
 package Hadoop::Streaming::Mapper;
+
 use Moo::Role;
 use IO::Handle;
 

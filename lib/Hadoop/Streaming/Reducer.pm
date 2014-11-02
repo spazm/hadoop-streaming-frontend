@@ -1,4 +1,5 @@
 package Hadoop::Streaming::Reducer;
+
 use Moo::Role;
 
 use IO::Handle;

@@ -1,4 +1,5 @@
 package Hadoop::Streaming::Combiner;
+
 use Moo::Role;
 
 use IO::Handle;

@@ -1,4 +1,5 @@
 package Hadoop::Streaming::Reducer::Input::ValuesIterator;
+
 use Moo;
 with 'Hadoop::Streaming::Role::Iterator';
 
