@@ -2,6 +2,12 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.143060  2014-11-01 20:49:57-07:00 America/Los_Angeles
+    * Switch to Moo from Any::Moose, thanks to patch from @stevecaldwell77 of Campus Explorer.
+    * update for latest versions of build deps:
+        * add some necessary newlines for PkgVersion
+        * remove duplicated repository information from dist.ini
+
 0.122420  2012-08-28 23:35:45 America/Los_Angeles
 
 0.113160  2011-11-12 15:49:32 America/Los_Angeles
